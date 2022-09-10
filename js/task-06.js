@@ -1,15 +1,15 @@
 const inputEl = document.querySelector('#validation-input');
 
-inputEl.addEventListener('blur', onInputBlur);
-inputEl.addEventListener('focus', onInputFocus);
+const addRemovePassword = (remove, add) => {
+  inputEl.classList.remove(`${remove}`);
+  inputEl.classList.add(`${add}`);
+};
+const validPassword = e => {
+  if (Number(inputEl.dataset.length) === e.currentTarget.value.length) {
+    addRemovePassword('invalid', 'valid');
+  } else {
+    addRemovePassword('valid', 'invalid');
+  }
+};
 
-function onInputBlur(event) {
-  event.currentTarget.value.length == event.currentTarget.dataset.length
-    ? event.currentTarget.classList.add('valid')
-    : event.currentTarget.classList.add('invalid');
-}
-
-function onInputFocus(event) {
-  event.currentTarget.classList.remove('valid');
-  event.currentTarget.classList.remove('invalid');
-}
+inputEl.addEventListener('blur', validPassword);

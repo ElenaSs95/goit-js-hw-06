@@ -1,38 +1,16 @@
 const form = document.querySelector('.login-form');
 
-form.addEventListener('submit', onFormSubmit);
+form.addEventListener('submit', e => {
+  e.preventDefault();
 
-function onFormSubmit(event) {
-  event.preventDefault();
+  const {
+    elements: { email, password },
+  } = e.currentTarget;
 
-  const emailRef = event.currentTarget.elements.email;
-  const passwordRef = event.currentTarget.elements.password;
-
-  let isEmptyInput = false;
-
-  if (emailRef.value === '') {
-    emailRef.classList.add('invalid-input');
-    emailRef.addEventListener('focus', onInputFocus);
-    isEmptyInput = true;
+  if (email.value === '' || password.value === '') {
+    return alert('Not all form fields are filled!');
   }
 
-  if (passwordRef.value === '') {
-    passwordRef.classList.add('invalid-input');
-    passwordRef.addEventListener('focus', onInputFocus);
-    isEmptyInput = true;
-  }
-
-  function onInputFocus(event) {
-    event.currentTarget.classList.remove('invalid-input');
-  }
-
-  if (isEmptyInput) alert('Not all form fields are filled!');
-  else {
-    const formData = {
-      email: emailRef.value,
-      password: passwordRef.value,
-    };
-    console.log(formData);
-    event.currentTarget.reset();
-  }
-}
+  console.log(`Login: ${email.value}, Password: ${password.value}`);
+  e.currentTarget.reset();
+});
